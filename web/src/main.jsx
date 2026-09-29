@@ -150,19 +150,19 @@ function App(){
           functionName:'getMyEggs',
           args:[account]
         }),
-        pc.readContract({
-          address:contract,
-          abi:artifact.abi,
-          functionName:'beanRewards',
-          args:[account]
-        }),
+          
         pc.readContract({
           address:contract,
           abi:artifact.abi,
           functionName:'owner'
         })
       ]);
-
+const rewards = miners === 0n ? 0n : await pc.readContract({
+  address:contract,
+  abi:artifact.abi,
+  functionName:'beanRewards',
+  args:[account]
+});
       setStats({
         bal:formatEther(bal),
         miners:String(miners),
