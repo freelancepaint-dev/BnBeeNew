@@ -6,7 +6,10 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
-
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,3 +33,10 @@ jobs:
 
       - name: Build BnBeeHive web app
         run: npm run build
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
