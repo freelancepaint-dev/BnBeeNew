@@ -1,0 +1,12 @@
+{
+  "name": "bnbeehive-bakedbeans-testnet",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "node scripts/compile.mjs",
+    "check": "npm run compile && npm --prefix web run build",
+    "build": "npm run compile && npm --prefix web run build"
+  },
+  "dependencies": { "solc": "0.8.9" }
+}
