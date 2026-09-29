@@ -132,7 +132,7 @@ function App(){
     if(!contract||!account)return;
 
     try{
-      const[bal,miners,eggs,rewards,owner]=await Promise.all([
+      const[bal,miners,eggs,owner]=await Promise.all([
         pc.readContract({
           address:contract,
           abi:artifact.abi,
