@@ -24,6 +24,7 @@ function App(){
   const[contract,setContract]=useState('');
   const[msg,setMsg]=useState('Connect the deployment wallet.');
   const[amount,setAmount]=useState('0.01');
+  const[referrer,setReferrer]=useState('');
   const[stats,setStats]=useState({});
 
   const wallet=()=>{
@@ -258,13 +259,17 @@ const rewards = miners === 0n ? 0n : await pc.readContract({
           onChange={e=>setAmount(e.target.value)}
           inputMode="decimal"
         />
-
+<input
+  value={referrer}
+  onChange={e=>setReferrer(e.target.value)}
+  placeholder="Referral wallet (optional)"
+/>
         <span> tBNB</span>
 
         <button
           onClick={()=>write(
             'buyEggs',
-            ['0x0000000000000000000000000000000000000000'],
+            [referrer.trim() || '0x0000000000000000000000000000000000000000'],
             parseEther(amount)
           )}
         >
