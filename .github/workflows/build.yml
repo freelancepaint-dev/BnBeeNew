@@ -2,9 +2,9 @@ name: Build BnBeeHive
 
 on:
   push:
-    branches: [main]
+    branches: [mainnet]
   pull_request:
-    branches: [main]
+    branches: [mainnet]
   workflow_dispatch:
 permissions:
   contents: read
