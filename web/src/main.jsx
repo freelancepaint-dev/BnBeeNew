@@ -5,7 +5,7 @@ import artifact from './generated/BakedBeans.json';
 import'./style.css';
 
 const OWNER='0x0F8C77d66BE897ded49b2793b71f2A3Eb63CCaA8';
-
+const CONTRACT='0x9dE16778D63953B3F778128B1D5cA0c88B797c72';
 const chain={
   id:56,
   name:'BNB Smart Chain',
@@ -21,7 +21,7 @@ const pc=createPublicClient({
 
 function App(){
   const[account,setAccount]=useState();
-  const[contract,setContract]=useState('');
+  const[contract,setContract]=useState(CONTRACT);
   const[msg,setMsg]=useState('Connect the deployment wallet.');
   const[amount,setAmount]=useState('0.01');
   const[referrer,setReferrer]=useState('');
@@ -177,12 +177,7 @@ function App(){
     }
   }
 
-  useEffect(()=>{
-    try{
-      const saved=localStorage.getItem('hiveContractMainnet');
-      if(saved)setContract(saved);
-    }catch{}
-  },[]);
+
 
   useEffect(()=>{
     refresh();
@@ -203,57 +198,14 @@ function App(){
       <section>
         <button onClick={connect}>Connect Wallet</button>
         <p>{account||'Not connected'}</p>
-        <p className="small">
-          Required deployer: {OWNER}
-        </p>
       </section>
 
-      <section>
-        <h2>1. Deploy</h2>
+      
 
-        <button onClick={deploy}>
-          Deploy BakedBeans
-        </button>
-
-        <p className="mono">
-          {contract||'No contract deployed yet'}
-        </p>
-
-        {contract&&(
-          <a
-            href={`${chain.blockExplorers.default.url}/address/${contract}`}
-            target="_blank"
-            rel="noreferrer"
-          >
-            View on BscScan
-          </a>
-        )}
-      </section>
+     
 
       <section>
-        <h2>2. Seed Market</h2>
-
-        <input
-          value={amount}
-          onChange={e=>setAmount(e.target.value)}
-          inputMode="decimal"
-        />
-
-        <span> BNB</span>
-
-        <button
-          onClick={()=>write('seedMarket',[],parseEther(amount))}
-        >
-          Seed Market
-        </button>
-
-        <p className="small">
-          Owner-only and one-time. The entered BNB becomes contract liquidity.
-        </p>
-      </section>
-
-      <section>
-        <h2>3. BnBeeHive</h2>
+        <h2>BnBeeHive</h2>
 
         <input
           value={amount}
