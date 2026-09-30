@@ -38,7 +38,7 @@ async function main() {
   if (!BOT_TOKEN) throw new Error('TELEGRAM_BOT_TOKEN is missing');
 
   const latestBlock = await client.getBlockNumber();
-  const fromBlock = latestBlock > 20n ? latestBlock - 20n : 0n;
+  const fromBlock = latestBlock > 300n ? latestBlock - 300n : 0n;
 
   const blocks = [];
   for (let n = fromBlock; n <= latestBlock; n++) {
