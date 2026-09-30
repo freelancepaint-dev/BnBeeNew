@@ -1,1 +1,40 @@
+name: BnBeeHive Hire Alerts
 
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout mainnet
+        uses: actions/checkout@v4
+        with:
+          ref: mainnet
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install viem
+        run: npm install viem
+
+      - name: Restore alert state
+        uses: actions/cache@v4
+        with:
+          path: hire-alert-state.json
+          key: hire-alert-state-${{ github.run_id }}
+          restore-keys: |
+            hire-alert-state-
+
+      - name: Check for Hire Bees
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: node scripts/hire-alert.js
