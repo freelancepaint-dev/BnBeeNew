@@ -7,11 +7,11 @@ import'./style.css';
 const OWNER='0x0F8C77d66BE897ded49b2793b71f2A3Eb63CCaA8';
 
 const chain={
-  id:97,
-  name:'BSC Testnet',
-  nativeCurrency:{name:'tBNB',symbol:'tBNB',decimals:18},
-  rpcUrls:{default:{http:['https://bsc-testnet-dataseed.bnbchain.org']}},
-  blockExplorers:{default:{name:'BscScan',url:'https://testnet.bscscan.com'}}
+  id:56,
+  name:'BNB Smart Chain',
+  nativeCurrency:{name:'BNB',symbol:'BNB',decimals:18},
+  rpcUrls:{default:{http:['https://bsc-dataseed.bnbchain.org']}},
+  blockExplorers:{default:{name:'BscScan',url:'https://bscscan.com'}}
 };
 
 const pc=createPublicClient({
@@ -37,14 +37,14 @@ function App(){
 
     await window.ethereum.request({
       method:'wallet_switchEthereumChain',
-      params:[{chainId:'0x61'}]
+      params:[{chainId:'0x38'}]
     }).catch(async()=>{
       await window.ethereum.request({
         method:'wallet_addEthereumChain',
         params:[{
-          chainId:'0x61',
-          chainName:'BSC Testnet',
-          nativeCurrency:{name:'tBNB',symbol:'tBNB',decimals:18},
+          chainId:'0x38',
+          chainName:'BNB Smart Chain',
+          nativeCurrency:{name:'BNB',symbol:'BNB',decimals:18},
           rpcUrls:chain.rpcUrls.default.http,
           blockExplorerUrls:[chain.blockExplorers.default.url]
         }]
@@ -151,19 +151,20 @@ function App(){
           functionName:'getMyEggs',
           args:[account]
         }),
-          
         pc.readContract({
           address:contract,
           abi:artifact.abi,
           functionName:'owner'
         })
       ]);
-const rewards = miners === 0n ? 0n : await pc.readContract({
-  address:contract,
-  abi:artifact.abi,
-  functionName:'beanRewards',
-  args:[account]
-});
+
+      const rewards=miners===0n?0n:await pc.readContract({
+        address:contract,
+        abi:artifact.abi,
+        functionName:'beanRewards',
+        args:[account]
+      });
+
       setStats({
         bal:formatEther(bal),
         miners:String(miners),
@@ -196,7 +197,7 @@ const rewards = miners === 0n ? 0n : await pc.readContract({
       </p>
 
       <div className="warn">
-        BSC TESTNET · tBNB ONLY · ORIGINAL BAKEDBEANS LOGIC · NOT AUDITED
+        BNB SMART CHAIN · BNB · ORIGINAL BAKEDBEANS LOGIC · NOT AUDITED
       </div>
 
       <section>
@@ -238,7 +239,7 @@ const rewards = miners === 0n ? 0n : await pc.readContract({
           inputMode="decimal"
         />
 
-        <span> tBNB</span>
+        <span> BNB</span>
 
         <button
           onClick={()=>write('seedMarket',[],parseEther(amount))}
@@ -247,7 +248,7 @@ const rewards = miners === 0n ? 0n : await pc.readContract({
         </button>
 
         <p className="small">
-          Owner-only and one-time. The entered tBNB becomes contract liquidity.
+          Owner-only and one-time. The entered BNB becomes contract liquidity.
         </p>
       </section>
 
@@ -259,12 +260,14 @@ const rewards = miners === 0n ? 0n : await pc.readContract({
           onChange={e=>setAmount(e.target.value)}
           inputMode="decimal"
         />
-<input
-  value={referrer}
-  onChange={e=>setReferrer(e.target.value)}
-  placeholder="Referral wallet (optional)"
-/>
-        <span> tBNB</span>
+
+        <input
+          value={referrer}
+          onChange={e=>setReferrer(e.target.value)}
+          placeholder="Referral wallet (optional)"
+        />
+
+        <span> BNB</span>
 
         <button
           onClick={()=>write(
@@ -301,10 +304,10 @@ const rewards = miners === 0n ? 0n : await pc.readContract({
           <span>{stats.eggs??'—'}</span>
 
           <b>Harvest value</b>
-          <span>{stats.rewards??'—'} tBNB</span>
+          <span>{stats.rewards??'—'} BNB</span>
 
           <b>Hive balance</b>
-          <span>{stats.bal??'—'} tBNB</span>
+          <span>{stats.bal??'—'} BNB</span>
 
           <b>Owner</b>
           <span className="mono">{stats.owner??'—'}</span>
@@ -317,7 +320,7 @@ const rewards = miners === 0n ? 0n : await pc.readContract({
       </section>
 
       <footer>
-        This contract does not generate external yield. Withdrawals depend on BNB/tBNB held by the contract. Testnet tokens have no monetary value.
+       This contract does not generate external yield. Withdrawals depend on BNB held by the contract. .
       </footer>
     </main>
   );
