@@ -197,7 +197,7 @@ function App(){
       </p>
 
       <div className="warn">
-        BNB SMART CHAIN · BNB · ORIGINAL BAKEDBEANS LOGIC · NOT AUDITED
+        BNB SMART CHAIN
       </div>
 
       <section>
