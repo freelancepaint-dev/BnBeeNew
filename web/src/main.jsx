@@ -92,7 +92,7 @@ function App(){
       setContract(r.contractAddress);
 
       try{
-        localStorage.setItem('hiveContract',r.contractAddress);
+        localStorage.setItem('hiveContractMainnet',r.contractAddress);
       }catch{}
 
       setMsg(`Deployed: ${r.contractAddress}`);
@@ -179,7 +179,7 @@ function App(){
 
   useEffect(()=>{
     try{
-      const saved=localStorage.getItem('hiveContract');
+      const saved=localStorage.getItem('hiveContractMainnet');
       if(saved)setContract(saved);
     }catch{}
   },[]);
